@@ -31,7 +31,7 @@ Record Camera frames.
 
 `DownSample`: The downsampling factor. *2 = 50%, 3 = 33%*
 
-### Frame methods
+### Methods
 `CopyFramesTo`: Copies frames to a destination span. Frames contain their size and a reference to their backing **RenderTexture**.
 
 `ClearFrames`: Clears all stored frames and cleans up the backing resources.
@@ -52,5 +52,5 @@ Add **CapturePreview** component to the camera GameObject you wish to record.
 
 `AutoFit`: If enabled, the RectTransform's sizeDelta will be adjusted to fit inside the given `FitSize`
 
-### Frame methods
+### Methods
 `LoadFrames`: Loads frames from the assigned **CameraCapture**. It is recommended to Set `CameraCapture.Recording = false` before calling this method.
