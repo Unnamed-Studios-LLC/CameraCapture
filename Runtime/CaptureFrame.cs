@@ -8,13 +8,13 @@ namespace UnnamedStudios
         public int Height;
         public RenderTexture Texture;
 
-        public CaptureFrame(int width, int height)
+        public CaptureFrame(int width, int height, FilterMode filterMode)
         {
             Width = width;
             Height = height;
             Texture = new RenderTexture(width, height, 0, RenderTextureFormat.ARGB32)
             {
-                filterMode = FilterMode.Point,
+                filterMode = filterMode,
                 wrapMode = TextureWrapMode.Clamp
             };
         }

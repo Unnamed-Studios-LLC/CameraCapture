@@ -33,6 +33,8 @@ Record Camera frames.
 
 `DownScale`: The downscaling factor. *0.5 = 50%, 0.3 = 33%, etc.*
 
+`FilterMode`: The filtering mode to use for the backing **RenderTextures**.
+
 ### Methods
 `CopyFramesTo`: Copies frames to a destination span. Frames contain their size and a reference to their backing **RenderTexture**.
 

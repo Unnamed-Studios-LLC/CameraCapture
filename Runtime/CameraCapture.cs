@@ -13,6 +13,7 @@ namespace UnnamedStudios
         public int MaxFrames = 150;
         public bool Recording = false;
         public float DownScale = 0.5f;
+        public FilterMode FilterMode = FilterMode.Point;
 
         private float _elapsedTime;
         private CaptureFrame[] _frames;
@@ -132,10 +133,11 @@ namespace UnnamedStudios
             ref var current = ref _frames[_frameIndex++];
             if (current.Texture == null ||
                 current.Texture.width != targetSize.x ||
-                current.Texture.height != targetSize.y)
+                current.Texture.height != targetSize.y ||
+                current.Texture.filterMode != FilterMode)
             {
                 if (current.Texture != null) Destroy(current.Texture);
-                current = new CaptureFrame(targetSize.x, targetSize.y);
+                current = new CaptureFrame(targetSize.x, targetSize.y, FilterMode);
             }
 
             Graphics.Blit(source, current.Texture);
