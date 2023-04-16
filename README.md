@@ -1,5 +1,7 @@
 # Camera Capture
 
+![campture-example](.repo/example.gif)
+
 Preview or Export GIF of recent camera frames in Unity Engine. 
 
 # Install
