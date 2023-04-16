@@ -1,0 +1,19 @@
+{
+	"name": "co.unnamedstudios.cameracapture",
+	"version": "1.0.0",
+	"description": "Preview or Export GIF of recent camera frames.",
+	"displayName": "Camera Capture",
+	"author": {
+		"name": "Unnamed Studios, LLC",
+		"email": "support@unnamedstudios.co",
+		"url": "https://unnamedstudios.co"
+	},
+	"keywords": [
+		"camera",
+		"capture",
+		"gif",
+		"export",
+		"replay"
+	],
+	"license": "MIT"
+}
