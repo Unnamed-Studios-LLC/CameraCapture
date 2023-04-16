@@ -31,7 +31,7 @@ Record Camera frames.
 
 `Recording`: If the camera is currently being recorded.
 
-`DownSample`: The downsampling factor. *2 = 50%, 3 = 33%*
+`DownScale`: The downscaling factor. *0.5 = 50%, 0.3 = 33%, etc.*
 
 ### Methods
 `CopyFramesTo`: Copies frames to a destination span. Frames contain their size and a reference to their backing **RenderTexture**.

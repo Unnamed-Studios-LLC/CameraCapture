@@ -12,7 +12,7 @@ namespace UnnamedStudios
         public int FrameRate = 30;
         public int MaxFrames = 150;
         public bool Recording = false;
-        public int DownSample = 2;
+        public float DownScale = 0.5f;
 
         private float _elapsedTime;
         private CaptureFrame[] _frames;
@@ -126,8 +126,8 @@ namespace UnnamedStudios
 
         private void CaptureFrame(RenderTexture source)
         {
-            DownSample = Mathf.Max(1, DownSample);
-            var targetSize = new Vector2Int(source.width / DownSample, source.height / DownSample);
+            DownScale = Mathf.Min(1, DownScale);
+            var targetSize = Vector2Int.Max(Vector2Int.one, new Vector2Int(Mathf.RoundToInt(source.width * DownScale), Mathf.RoundToInt(source.height * DownScale)));
 
             ref var current = ref _frames[_frameIndex++];
             if (current.Texture == null ||
