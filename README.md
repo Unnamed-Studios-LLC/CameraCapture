@@ -24,13 +24,18 @@ Record Camera frames.
 
 ### Properties
 `FrameRate`: Amount of frames recorded per second.
+
 `MaxFrames`: The maximum amount of frames to store. *MaxFrames / FrameRate = Max Clip Duration*
+
 `Recording`: If the camera is currently being recorded.
+
 `DownSample`: The downsampling factor. *2 = 50%, 3 = 33%*
 
 ### Frame methods
 `CopyFramesTo`: Copies frames to a destination span. Frames contain their size and a reference to their backing **RenderTexture**.
+
 `ClearFrames`: Clears all stored frames and cleans up the backing resources.
+
 `ExportGifAsync`: Exports current frames to a gif file into folder in `persistentDataPath`.
 
 ## CapturePreview
@@ -41,11 +46,10 @@ Add **CapturePreview** component to the camera GameObject you wish to record.
 
 ### Properties
 `Capture`: The **CameraCapture** to read from.
-`FitSize`: The maximum amount of frames to store. *MaxFrames / FrameRate = Max Clip Duration*
-`Recording`: If the camera is currently being recorded.
-`DownSample`: The downsampling factor. *2 = 50%, 3 = 33%*
+
+`PlaybackFrameRate`: The frame rate to playback frames at.
+
+`AutoFit`: If enabled, the RectTransform's sizeDelta will be adjusted to fit inside the given `FitSize`
 
 ### Frame methods
-`CopyFramesTo`: Copies frames to a destination span. Frames contain their size and a reference to their backing **RenderTexture**.
-`ClearFrames`: Clears all stored frames and cleans up the backing resources.
-`ExportGifAsync`: Exports current frames to a gif file into folder in `persistentDataPath`.
+`LoadFrames`: Loads frames from the assigned **CameraCapture**. It is recommended to Set `CameraCapture.Recording = false` before calling this method.
