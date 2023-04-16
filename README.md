@@ -36,7 +36,8 @@ Record Camera frames.
 
 `ClearFrames`: Clears all stored frames and cleans up the backing resources.
 
-`ExportGifAsync`: Exports current frames to a gif file into folder in `persistentDataPath`.
+
+`ExportGifAsync`: Exports current frames to a gif file in a folder found at `persistentDataPath`.
 
 ## CapturePreview
 Display recorded Camera frames in UI.
