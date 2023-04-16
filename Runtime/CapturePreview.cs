@@ -8,9 +8,21 @@ namespace UnnamedStudios
     [RequireComponent(typeof(RawImage))]
     public class CapturePreview : MonoBehaviour
     {
+        /// <summary>
+        /// The CameraCapture to read from.
+        /// </summary>
         public CameraCapture Capture;
+        /// <summary>
+        /// The frame rate to playback frames at.
+        /// </summary>
         public int PlaybackFrameRate = 30;
+        /// <summary>
+        /// If enabled, the RectTransform's sizeDelta will be adjusted to fit inside the given FitSize.
+        /// </summary>
         public bool AutoFit = true;
+        /// <summary>
+        /// The size to fit to if AutoFit is enabled.
+        /// </summary>
         public Vector2 FitSize = new Vector2(100, 50);
 
         private RawImage _rawImage;
@@ -21,6 +33,9 @@ namespace UnnamedStudios
         private int _indexOffset;
         private int _syncedFrameRate;
 
+        /// <summary>
+        /// Loads frames from the assigned CameraCapture. It is recommended to set Recording = false in the CameraCapture before calling this method.
+        /// </summary>
         public void LoadFrames(int? frameCount = default)
         {
             if (Capture == null)

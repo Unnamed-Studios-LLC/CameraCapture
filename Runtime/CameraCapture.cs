@@ -9,10 +9,25 @@ namespace UnnamedStudios
     [RequireComponent(typeof(Camera))]
     public class CameraCapture : MonoBehaviour
     {
+        /// <summary>
+        /// Amount of frames recorded per second.
+        /// </summary>
         public int FrameRate = 30;
+        /// <summary>
+        /// The maximum amount of frames to store. MaxFrames / FrameRate = Max Clip Duration
+        /// </summary>
         public int MaxFrames = 150;
+        /// <summary>
+        /// If the camera is currently being recorded.
+        /// </summary>
         public bool Recording = false;
+        /// <summary>
+        /// The downscaling factor. 0.5 = 50%, 0.3 = 33%, etc.
+        /// </summary>
         public float DownScale = 0.5f;
+        /// <summary>
+        /// The filtering mode to use for the backing RenderTextures.
+        /// </summary>
         public FilterMode FilterMode = FilterMode.Point;
 
         private float _elapsedTime;
@@ -22,6 +37,9 @@ namespace UnnamedStudios
 
         private float TargetFrameDuration => 1f / FrameRate;
 
+        /// <summary>
+        /// Clears all stored frames and cleans up the backing resources.
+        /// </summary>
         public void ClearFrames()
         {
             if (_frameCount > 0)
@@ -37,6 +55,10 @@ namespace UnnamedStudios
             _elapsedTime = 0;
         }
 
+        /// <summary>
+        /// Copies frames to a destination span. Frames contain their size and a reference to their backing RenderTexture.
+        /// </summary>
+        /// <returns>The amount of frames copied</returns>
         public int CopyFramesTo(Span<CaptureFrame> destination, int? frameCount = default)
         {
             if (_frameCount <= 0) return 0;
@@ -44,6 +66,10 @@ namespace UnnamedStudios
             return CopyFramesTo(source, destination);
         }
 
+        /// <summary>
+        /// Exports current frames to a gif file in a folder found at persistentDataPath.
+        /// </summary>
+        /// <returns>Filepath of the created gif</returns>
         public async Task<string> ExportGifAsync(int frameRate, bool openFolder)
         {
             const string randomCharacterSource = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
