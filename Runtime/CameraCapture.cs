@@ -70,7 +70,7 @@ namespace UnnamedStudios
         /// Exports current frames to a gif file in a folder found at persistentDataPath.
         /// </summary>
         /// <returns>Filepath of the created gif</returns>
-        public async Task<string> ExportGifAsync(int frameRate, bool openFolder)
+        public async Task<string> ExportGifAsync(int playbackFrameRate)
         {
             const string randomCharacterSource = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
             const int randomLength = 10;
@@ -123,7 +123,7 @@ namespace UnnamedStudios
             RenderTexture.active = null;
 
             var gifEncoder = new GifEncoder(0, 20);
-            gifEncoder.SetFrameRate(frameRate);
+            gifEncoder.SetFrameRate(playbackFrameRate);
 
             await Task.Run(() =>
             {
@@ -141,12 +141,6 @@ namespace UnnamedStudios
                 gifEncoder.Finish();
                 Debug.Log("Gif export finished in " + (DateTime.Now - startTimestamp).TotalMilliseconds + " ms");
             });
-
-            if (openFolder &&
-                !string.IsNullOrEmpty(filePath))
-            {
-                Application.OpenURL($"file:///{Path.GetDirectoryName(filePath).Replace('\\', '/')}");
-            }
 
             return filePath;
         }
