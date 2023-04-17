@@ -47,7 +47,8 @@ Display recorded Camera frames in UI. Add this component to a gameObject with a 
 ```
 Capture: The CameraCapture to read from.
 PlaybackFrameRate: The frame rate to playback frames at.
-AutoFit: If enabled, the RectTransform's sizeDelta will be adjusted to fit inside the given FitSize
+AutoFit: If enabled, the RectTransform's sizeDelta will be adjusted to fit inside the given FitSize.
+FitSize: The size to fit to if AutoFit is enabled.
 ```
 
 ### Methods
