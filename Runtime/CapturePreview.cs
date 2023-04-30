@@ -24,14 +24,18 @@ namespace UnnamedStudios
         /// The size to fit to if AutoFit is enabled.
         /// </summary>
         public Vector2 FitSize = new Vector2(100, 50);
+        /// <summary>
+        /// If playback should increment frames at the given PlaybackFrameRate.
+        /// </summary>
+        public bool Playing = true;
 
         private RawImage _rawImage;
         private CaptureFrame[] _frames;
         private int _frameCount;
         private int _displayedIndex = -1;
-        private float _startTime;
-        private int _indexOffset;
-        private int _syncedFrameRate;
+        private float _timeRemaining;
+
+        private float TargetFrameDuration = 1f / Mathf.Max(1, PlaybackFrameRate);
 
         /// <summary>
         /// Loads frames from the assigned CameraCapture. It is recommended to set Recording = false in the CameraCapture before calling this method.
@@ -61,6 +65,32 @@ namespace UnnamedStudios
             {
                 maxSize = Vector2Int.Max(maxSize, new Vector2Int(frame.Width, frame.Height));
             }
+
+            SetFrame(0);
+        }
+
+        /// <summary>
+        /// Immediately displays the next frame of playback.
+        /// </summary>
+        public void NextFrame()
+        {
+            if (_displayedIndex < 0 ||
+                _frameCount <= 0 ||
+                _rawImage == null) return;
+
+            SetFrame(mod(_displayedIndex + 1, _frameCount));
+        }
+
+        /// <summary>
+        /// Immediately displays the previous frame of playback.
+        /// </summary>
+        public void PreviousFrame()
+        {
+            if (_displayedIndex < 0 ||
+                _frameCount <= 0 ||
+                _rawImage == null) return;
+
+            SetFrame(mod(_displayedIndex - 1, _frameCount));
         }
 
         private void Awake()
@@ -107,17 +137,21 @@ namespace UnnamedStudios
         private void UpdateFrame()
         {
             if (_frameCount <= 0 ||
-                _rawImage == null) return;
+                _rawImage == null ||
+                !Playing) return;
 
-            if (PlaybackFrameRate != _syncedFrameRate)
+            _timeRemaining = Mathf.Min(_timeRemaining, TargetFrameDuration);
+            _timeRemaining -= Time.deltaTime;
+            while (_timeRemaining <= 0)
             {
-                _syncedFrameRate = PlaybackFrameRate;
-                _indexOffset = Mathf.Max(0, _displayedIndex);
-                _startTime = Time.time;
+                NextFrame();
+                _timeRemaining += TargetFrameDuration;
             }
+        }
 
-            var index = (_indexOffset + Mathf.FloorToInt((Time.time - _startTime) * PlaybackFrameRate)) % _frameCount;
-            SetFrame(index);
+        int mod(int x, int m) // negative mod
+        {
+            return (x % m + m) % m;
         }
     }
 }

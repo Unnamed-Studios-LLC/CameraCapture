@@ -1,6 +1,6 @@
 {
 	"name": "co.unnamedstudios.cameracapture",
-	"version": "1.0.4",
+	"version": "1.0.5",
 	"description": "Preview or Export GIF of recent camera frames.",
 	"displayName": "Camera Capture",
 	"author": {

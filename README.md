@@ -49,9 +49,12 @@ Capture: The CameraCapture to read from.
 PlaybackFrameRate: The frame rate to playback frames at.
 AutoFit: If enabled, the RectTransform's sizeDelta will be adjusted to fit inside the given FitSize.
 FitSize: The size to fit to if AutoFit is enabled.
+Playing: If playback should increment frames at the given PlaybackFrameRate.
 ```
 
 ### Methods
 ```
 LoadFrames: Loads frames from the assigned CameraCapture. It is recommended to set Recording = false in the CameraCapture before calling this method.
+NextFrame: Immediately displays the next frame of playback.
+PreviousFrame: Immediately displays the previous frame of playback.
 ```
