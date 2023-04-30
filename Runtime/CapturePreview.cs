@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -36,6 +37,43 @@ namespace UnnamedStudios
         private float _timeRemaining;
 
         private float TargetFrameDuration => 1f / Mathf.Max(1, PlaybackFrameRate);
+
+        /// <summary>
+        /// Exports currently displayed frame to a png file in a folder found at persistentDataPath.
+        /// </summary>
+        /// <returns>Filepath of the created gif</returns>
+        public async Task<string> ExportPngAsync(int playbackFrameRate)
+        {
+            if (_displayedIndex < 0 ||
+                _frameCount <= 0) return string.Empty;
+
+            var filePath = FileHelper.GetRandomApplicationFileName("Clips", "png");
+
+            var maxSize = Vector2Int.zero;
+            for (int i = 0; i < frameCount; i++)
+            {
+                var sourceFrame = frames[i];
+                maxSize = Vector2Int.Max(maxSize, new Vector2Int(sourceFrame.Width, sourceFrame.Height));
+            }
+
+            var frame = _frames[_displayedIndex];
+            var readTexture = new Texture2D(frame.Width, frame.Height, TextureFormat.ARGB32, false, false)
+            {
+                filterMode = FilterMode.Point,
+                wrapMode = TextureWrapMode.Clamp
+            };
+
+            RenderTexture.active = frame.Texture;
+            readTexture.ReadPixels(new Rect(0, 0, frame.Width, frame.Height), 0, 0);
+            var bytes = readTexture.EncodeToPNG();
+
+            RenderTexture.active = null;
+            Destroy(readTexture);
+
+            await File.WriteAllBytesAsync(filePath, bytes);
+
+            return filePath;
+        }
 
         /// <summary>
         /// Loads frames from the assigned CameraCapture. It is recommended to set Recording = false in the CameraCapture before calling this method.

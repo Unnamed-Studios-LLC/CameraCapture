@@ -72,27 +72,7 @@ namespace UnnamedStudios
         /// <returns>Filepath of the created gif</returns>
         public async Task<string> ExportGifAsync(int playbackFrameRate)
         {
-            const string randomCharacterSource = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
-            const int randomLength = 10;
-
-            var folder = Path.Combine(Application.persistentDataPath, "Clips");
-            Directory.CreateDirectory(folder);
-
-            string filePath;
-            var stringBuilder = new StringBuilder();
-            do
-            {
-                stringBuilder.Append(Application.productName);
-                stringBuilder.Replace(' ', '_');
-                stringBuilder.Append('_');
-                for (int i = 0; i < randomLength; i++)
-                {
-                    stringBuilder.Append(randomCharacterSource[UnityEngine.Random.Range(0, randomCharacterSource.Length)]);
-                }
-                stringBuilder.Append(".gif");
-                filePath = Path.Combine(folder, stringBuilder.ToString());
-            }
-            while (File.Exists(filePath));
+            var filePath = FileHelper.GetRandomApplicationFileName("Clips", "gif");
 
             var frames = new CaptureFrame[_frames.Length];
             var frameCount = CopyFramesTo(frames.AsSpan());
@@ -121,6 +101,7 @@ namespace UnnamedStudios
             }
 
             RenderTexture.active = null;
+            Destroy(readTexture);
 
             var gifEncoder = new GifEncoder(0, 20);
             gifEncoder.SetFrameRate(playbackFrameRate);
