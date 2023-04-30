@@ -42,8 +42,8 @@ namespace UnnamedStudios
         /// <summary>
         /// Exports currently displayed frame to a png file in a folder found at persistentDataPath.
         /// </summary>
-        /// <returns>Filepath of the created gif</returns>
-        public async Task<string> ExportPngAsync(int playbackFrameRate)
+        /// <returns>Filepath of the created png</returns>
+        public async Task<string> ExportPngAsync()
         {
             if (_displayedIndex < 0 ||
                 _frameCount <= 0) return string.Empty;

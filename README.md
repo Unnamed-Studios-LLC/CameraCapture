@@ -54,6 +54,7 @@ Playing: If playback should increment frames at the given PlaybackFrameRate.
 
 ### Methods
 ```
+ExportPngAsync: Exports currently displayed frame to a png file in a folder found at persistentDataPath.
 LoadFrames: Loads frames from the assigned CameraCapture. It is recommended to set Recording = false in the CameraCapture before calling this method.
 NextFrame: Immediately displays the next frame of playback.
 PreviousFrame: Immediately displays the previous frame of playback.
