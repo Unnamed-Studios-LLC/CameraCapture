@@ -52,7 +52,6 @@ namespace UnnamedStudios
             var framesSpan = _frames.AsSpan();
             _frameCount = Capture.CopyFramesTo(framesSpan);
             _displayedIndex = -1;
-            _startTime = Time.time;
 
             if (_frameCount <= 0)
             {
