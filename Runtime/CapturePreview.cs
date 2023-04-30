@@ -35,7 +35,7 @@ namespace UnnamedStudios
         private int _displayedIndex = -1;
         private float _timeRemaining;
 
-        private float TargetFrameDuration = 1f / Mathf.Max(1, PlaybackFrameRate);
+        private float TargetFrameDuration => 1f / Mathf.Max(1, PlaybackFrameRate);
 
         /// <summary>
         /// Loads frames from the assigned CameraCapture. It is recommended to set Recording = false in the CameraCapture before calling this method.
