@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
@@ -48,13 +49,6 @@ namespace UnnamedStudios
                 _frameCount <= 0) return string.Empty;
 
             var filePath = FileHelper.GetRandomApplicationFileName("Clips", "png");
-
-            var maxSize = Vector2Int.zero;
-            for (int i = 0; i < frameCount; i++)
-            {
-                var sourceFrame = frames[i];
-                maxSize = Vector2Int.Max(maxSize, new Vector2Int(sourceFrame.Width, sourceFrame.Height));
-            }
 
             var frame = _frames[_displayedIndex];
             var readTexture = new Texture2D(frame.Width, frame.Height, TextureFormat.ARGB32, false, false)
