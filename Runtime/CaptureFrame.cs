@@ -12,7 +12,7 @@ namespace UnnamedStudios
         {
             Width = width;
             Height = height;
-            Texture = new RenderTexture(width, height, 0, RenderTextureFormat.ARGB32)
+            Texture = new RenderTexture(width, height, 0, RenderTextureFormat.Default)
             {
                 filterMode = filterMode,
                 wrapMode = TextureWrapMode.Clamp
